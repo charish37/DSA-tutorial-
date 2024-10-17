@@ -92,6 +92,39 @@ class Array{
         return true;
     }
 
+    max() {
+        let maxVal = this.data[0];
+        for(let i = 1; i< this.length; i++){
+            if(this.data[i] > maxVal) maxVal = this.data[i]
+        }
+        return maxVal;
+    }
+
+    min() {
+        let minVal = this.data[0];
+        for(let i = 1; i< this.length; i++){
+            if(this.data[i] < minVal) minVal = this.data[i]
+        }
+        return minVal;
+    }
+
+    sum() {
+        let total = 0;
+        for(let i = 0; i< this.length; i++){
+            total += this.data[i];
+        }
+        return total;
+    }
+
+    sum(Array,n){
+        if(n < 0) return 0
+        return Array[n] + sum(Array, n-1)
+    }
+
+    avg(){
+        return sum() / this.length;
+    }
+
     search(key){
         for(let i = 0; i< this.length; i++){
             if(key == this.data[i]){
@@ -111,10 +144,59 @@ class Array{
                 return i;
             }
         }
-        return undefined;
+        return -1;
     }
 
+    reverseOne() {
+        let temp = [];
+        for(let i = 0, j = this.length; j >= 0; i++, j-- ){
+            temp[i] = this.data[j]
+        }
+        for(let i = 0; i< this.length; i++){
+            this.data[i] = temp[i]
+        }
+        return this.data;
+    }
 
+    reverse2() {
+        for(let j = this.length - 1, i = 0; i<j; j--, i++){
+           let temp = this.data[i];
+           this.data[i] = this.data[j];
+           this.data[j] = temp;
+        }
+        return this.data;
+    }
+
+    // Inserting an element in a sorted array
+
+    insertInSortedArray(arr,val){
+        for(let i = arr.length - 1; i >= 0; i--){
+            if(arr[i] > val){
+                arr[i+1] = arr[i];
+                arr[i] = val
+            } 
+        }
+        return arr;
+    }
+
+    isSortedArray(arr) {
+     for(let i = 0; i< arr.length-1; i++){
+        if(arr[i] > arr[i+1]){
+            return false;
+        }
+     }
+     return true;
+    }
+
+    negativeOnLeft(arr) {
+        let i = 0;
+        let j = arr.length - 1;
+        while(i < j){
+            if(arr[i] > 0){
+                i++;
+            }
+        }
+    }
 }
 
 let arr = new Array();
@@ -123,8 +205,14 @@ console.log(arr.push(7));
 arr.push(34);
 arr.push(342);
 arr.push(67);
+arr.push(45)
 // console.log(arr.pop());
 console.log(arr.shift(), "--> shift")
 console.log(arr.unshift(10));
 console.log(arr.insert(2,22))
+console.log(arr.max(), "----> max")
 console.log(arr);
+console.log(arr.reverse2(), "---> reverse")
+console.log(arr.insertInSortedArray([1,4,7,9],5))
+console.log(arr.isSortedArray([1,2,3,4,5,7]), "is sorted array");
+console.log(arr.isSortedArray([1,4,3,6,8])," is sorted array")
