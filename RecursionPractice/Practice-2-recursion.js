@@ -84,6 +84,8 @@ function fibonacci(n) {
 
 // console.log(fibonacci(0))
 
+// Write a recursive function called reverse which accepts a string and returns a new string in reverse.
+
 function reverse(str) {
   if(str.length > 1){
     return reverse(str.slice(1)) + str[0];
@@ -111,6 +113,8 @@ function isPalindrome(str) {
 
 // console.log(isPalindrome("baoob"))
 
+//Write a recursive function called isPalindrome which returns true if the string passed to it is a palindrome (reads the same forward and backward). Otherwise it returns false.
+
 function isPalindromeRec(str) {
   let reverse;
   function recPalindrome(str){
@@ -130,6 +134,8 @@ function isOdd(n){
   }  return true;
 }
 
+// Write a recursive function called someRecursive which accepts an array and a callback. The function returns true if a single value in the array returns true when passed to the callback. Otherwise it returns false.
+
 function someRecursive(arr,cb) {
   if(arr.length > 0) {
     if(cb(arr[0])) {
@@ -142,7 +148,7 @@ function someRecursive(arr,cb) {
 
 // console.log(someRecursive([4,1,2,3], isOdd));
 
-// Flattened the array
+// Write a recursive function called flatten which accepts an array of arrays and returns a new array with all values flattened.
 
 function flatten(arr) {
  
@@ -164,10 +170,70 @@ function flatten(arr) {
 
 // console.log(flatten([1, [2, [3, 4], [[5]]]]))
 
-function CapitalizeFirst(arr) {
-  return arr.map((item) => {
-    return [(item[0].toUppercase)+item.slice(1),CapitalizeFirst(arr.slice(1))] 
-  })
+// Write a recursive function called capitalizeFirst. Given an array of strings, capitalize the first letter of each string in the array.
+
+function Capitalize(arr) {
+  let finaliseArray = [];
+
+for(let i = 0; i< arr.length; i++){
+
+   let str = arr[i];
+    str = str[0].toUpperCase();
+
+  for(let j = 1; j< arr[i].length; j++){
+    str = str+arr[i][j] 
+  }
+ finaliseArray.push(str)
+}
+return finaliseArray;
+}
+// console.log(Capitalize(["cars","rome","jack","devil"]));
+
+function Capitalize(arr) {
+  let finaliseArray = [];
+  function recursiveCap(arr) {
+    if(arr.length > 0){
+      let val = arr[0];
+      val = val[0].toUpperCase()+ val.slice(1)
+    
+      finaliseArray.push(val);
+      recursiveCap(arr.slice(1))
+    }
+  }
+  recursiveCap(arr)
+  return finaliseArray;
 }
 
-console.log(CapitalizeFirst(["shdj","ASafs"]))
+// console.log(Capitalize(["cars","rome","jack", "bats"]))
+
+// Write a recursive function called nestedEvenSum. Return the sum of all even numbers in an object which may contain nested objects.
+
+function nestedEvenSum (obj1) {
+  let total = 0;
+  
+  function recursiveSum(obj1) {
+    for(let key in obj1){
+      if(typeof obj1[key] === 'object' && obj1[key] !== null && !Array.isArray(obj1[key])){
+        recursiveSum(obj1[key])
+      }
+      else if(obj1[key] % 2 === 0){
+        total = total + obj1[key];
+      }
+    }
+  }
+  recursiveSum(obj1);
+  return total;
+  
+}
+
+
+var obj2 = {
+  a: 2,
+  b: {b: 2, bb: {b: 3, bb: {b: 2}}},
+  c: {c: {c: 2}, cc: 'ball', ccc: 5},
+  d: 1,
+  e: {e: {e: 2}, ee: 'car'}
+};
+
+console.log(nestedEvenSum(obj2))
+
